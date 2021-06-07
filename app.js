@@ -17,7 +17,6 @@ app.get('/getValue',(req,res)=>{
     res.render('test.hbs');
 });
 
-
 app.get('/',(req,res)=>{
     let hostname = req.hostname;
     equal(hostname,req.query).then(data=>{ 
@@ -31,11 +30,10 @@ app.get('/',(req,res)=>{
 app.post('/',(req,res)=>{
     let {parametrs,endpoint} = req.body;
     equal(endpoint,parametrs).then(data=>{
-        console.log(data);
-        res.setHeader('platform',data.platform);
         res.cookie('platform',data.platform,{
+            maxAge:2400*10,
             domain:domain.name_for_cookie,
-            maxAge:2400*10
+            secure:true,
         });
         res.redirect(createLink(data.link));
     }).catch(err=>{
