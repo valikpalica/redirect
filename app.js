@@ -11,32 +11,35 @@ app.use(express.static(path.join(__dirname,'public')));
 app.set("view engine", "hbs");
 
 
+
 app.get('/getValue',(req,res)=>{
-    res.cookie('tokenUser','AFFD-4321-dsaf-fdas-341fr');
     res.render('test.hbs');
 });
 
-app.post('/',(req,res)=>{
-    let {tokenUser} = req.cookies;
-    console.log(tokenUser);
-    //let {linkIn} = req.body;
-    let linkIn = 'www.ironfx.com';
-    equal(linkIn).then(data=>{
-        console.log(data);
-        res.redirect(createLink(data));
+
+app.get('/',(req,res)=>{
+    let hostname = req.hostname;
+    equal(hostname,req.query).then(data=>{ 
+        res.redirect(createLink(data.link));
     }).catch(err=>{
         console.error(err);
+        res.status(300).send('No data');
+    });
+});
+
+app.post('/',(req,res)=>{
+    let {parametrs,endpoint} = req.body;
+    equal(endpoint,parametrs).then(data=>{
+        console.log(data);
+        res.redirect(createLink(data.link));
+    }).catch(err=>{
+        console.error(err);
+        res.status(300).send('No data');
     })
 })
 
-const response = (token) =>{
-    //response for api and return id
-    const id = 1;
-    res.cookie('id',id);
-}
 const createLink = (endpoint) =>{
     let port = 'http';
-    console.log(`${port}://${endpoint}`);
     return `${port}://${endpoint}`
 }
 
