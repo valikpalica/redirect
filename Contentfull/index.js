@@ -2,12 +2,10 @@ let contentful = require('contentful');
 let getInfoNet = require('../API/.net/index');
 let getInfoPHP = require('../API/php/index');
 
-
 let client = contentful.createClient({
     space : 'uh07yvhipxg5',
     accessToken : 'roSrwRuPl3c1NDb2PVuDTScaUxvE0g1eAplAHs_hNWE',
 });
-
 
 const equal = async (link,parametrs) =>{
     return new Promise((resolve,reject)=>{
@@ -15,12 +13,12 @@ const equal = async (link,parametrs) =>{
             content_type:'authorizationLinks'
         }).then(entrise=>{
            entrise.items.forEach(item=>{
-               console.log('links ',item.fields);
+               
                if(link === item.fields.linkIn){
-                   getInfo(item.fields.system,parametrs).then(data=>{
-                       console.log('data ',data);
-                       if(data!==undefined){
-                            resolve({link:item.fields.linkOut,id_user:data});
+                   getInfo(item.fields.system,parametrs).then(({result,platform})=>{
+                       
+                       if(result!==undefined){
+                            resolve({link:item.fields.linkOut,id_user:result,platform});
                        }
                        else{
                            reject(new Error('No data'));
@@ -33,23 +31,26 @@ const equal = async (link,parametrs) =>{
         }); 
     })
 }
+
 const getInfo = async (system,parametrs) =>{
     try {
+        let platform;
         let result;
         if(system === '.net'){
-            // let Token = parametrs.Token;
-            // let RefreshToken = parametrs.RefreshToken;
+            // let token = parametrs.Token;
+            // let refresh_token = parametrs.RefreshToken;
+            platform = '.net';
             result = await getInfoNet(parametrs);
         }
         else if (system === 'php'){
             //let guid = parametrs.guid;
+            platform = 'php';
             result = await getInfoPHP(parametrs);
         }
-        return result;
+        return {result,platform};
     } catch (error) {
         console.log(error);
     }
-
 }
 
 module.exports = equal;

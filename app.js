@@ -4,6 +4,7 @@ const cookieParser = require('cookie-parser');
 const PORT = process.env.PORT || 8080;
 const path = require('path');
 const equal = require('./Contentfull/index');
+const domain = require('./domain.json');
 app.use(cookieParser('secret'));
 app.use(express.urlencoded({extended:false}));
 app.use(express.json());
@@ -31,6 +32,10 @@ app.post('/',(req,res)=>{
     let {parametrs,endpoint} = req.body;
     equal(endpoint,parametrs).then(data=>{
         console.log(data);
+        res.cookie('platform',data.platform,{
+            domain:domain.name_for_cookie,
+            maxAge:2400*10
+        });
         res.redirect(createLink(data.link));
     }).catch(err=>{
         console.error(err);
