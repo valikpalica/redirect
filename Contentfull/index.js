@@ -39,7 +39,7 @@ const getInfo = async (system,parametrs) =>{
         if(system === '.net'){
             // let token = parametrs.Token;
             // let refresh_token = parametrs.RefreshToken;
-            platform = '.net';
+            platform = 'net';
             result = await getInfoNet(parametrs);
         }
         else if (system === 'php'){
