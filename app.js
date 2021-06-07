@@ -17,20 +17,26 @@ app.get('/getValue',(req,res)=>{
     res.render('test.hbs');
 });
 
-app.get('/',(req,res)=>{
-    let hostname = req.hostname;
-    equal(hostname,req.query).then(data=>{ 
-        res.redirect(createLink(data.link,data.platform));
-    }).catch(err=>{
-        console.error(err);
-        res.status(300).send('No data');
-    });
-});
+// app.get('/',(req,res)=>{
+//     let hostname = req.hostname;
+//     equal(hostname,req.query).then(data=>{ 
+//         res.redirect(createLink('localhost:8080',data.platform));
+//     }).catch(err=>{
+//         console.error(err);
+//         res.status(300).send('No data');
+//     });
+// });
+
+
+app.get('/pritouts',(req,res)=>{
+    console.log(req.query['sys']);
+    res.send('Platform');
+})
 
 app.post('/',(req,res)=>{
     let {parametrs,endpoint} = req.body;
     equal(endpoint,parametrs).then(data=>{
-        res.redirect(createLink(data.link,data.platform));
+        res.redirect(createLink('localhost:8081/pritouts',data.platform));
     }).catch(err=>{
         console.error(err);
         res.status(300).send('No data');
@@ -38,7 +44,8 @@ app.post('/',(req,res)=>{
 })
 const createLink = (endpoint,platform) =>{
     let port = 'http';
-    return `${port}://${endpoint}/:${platform}`;
+    
+    return `${port}://${endpoint}?sys=${platform}`;
 }
 app.listen(PORT,()=>{
     console.log(`Server has been started on ${PORT} port`);
