@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
 const cookieParser = require('cookie-parser');
-const PORT = process.env.PORT || 8080;
+const PORT = process.env.PORT || 8081;
 const path = require('path');
 const equal = require('./Contentfull/index');
 const domain = require('./domain.json');
@@ -20,7 +20,7 @@ app.get('/getValue',(req,res)=>{
 app.get('/',(req,res)=>{
     let hostname = req.hostname;
     equal(hostname,req.query).then(data=>{ 
-        res.redirect(createLink(data.link));
+        res.redirect(createLink(data.link,data.platform));
     }).catch(err=>{
         console.error(err);
         res.status(300).send('No data');
@@ -30,23 +30,16 @@ app.get('/',(req,res)=>{
 app.post('/',(req,res)=>{
     let {parametrs,endpoint} = req.body;
     equal(endpoint,parametrs).then(data=>{
-        res.cookie('platform',data.platform,{
-            maxAge:2400*10,
-            domain:domain.name_for_cookie,
-            secure:true,
-        });
-        res.redirect(createLink(data.link));
+        res.redirect(createLink(data.link,data.platform));
     }).catch(err=>{
         console.error(err);
         res.status(300).send('No data');
     })
 })
-
-const createLink = (endpoint) =>{
+const createLink = (endpoint,platform) =>{
     let port = 'http';
-    return `${port}://${endpoint}`
+    return `${port}://${endpoint}/:${platform}`;
 }
-
 app.listen(PORT,()=>{
     console.log(`Server has been started on ${PORT} port`);
 })
