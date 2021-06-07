@@ -32,6 +32,7 @@ app.post('/',(req,res)=>{
     let {parametrs,endpoint} = req.body;
     equal(endpoint,parametrs).then(data=>{
         console.log(data);
+        res.setHeader('platform',data.platform);
         res.cookie('platform',data.platform,{
             domain:domain.name_for_cookie,
             maxAge:2400*10
