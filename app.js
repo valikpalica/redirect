@@ -15,25 +15,25 @@ app.get('/getValue', (req, res) => {
     res.render('test.hbs');
 });
 
-// app.get('/',(req,res)=>{
-//     let hostname = req.hostname;
-//     equal(hostname,req.query).then(data=>{ 
-// res.redirect(createLink('localhost:8080/printouts', data.platform));
-//     }).catch(err=>{
-//         console.error(err);
-//         res.status(300).send('No data');
-//     });
-// });
-
-app.post('/', (req, res) => {
-    let { parametrs, endpoint } = req.body;
-    equal(endpoint, parametrs).then(data => {
-        res.redirect(createLink('localhost:8080/printouts', data.platform));
-    }).catch(err => {
+app.get('/',(req,res)=>{
+    let hostname = req.hostname;
+    equal(hostname,req.query).then(data=>{ 
+res.redirect(createLink('localhost:8080/printouts', data.platform));
+    }).catch(err=>{
         console.error(err);
         res.status(300).send('No data');
-    })
-})
+    });
+});
+
+// app.post('/', (req, res) => {
+//     let { parametrs, endpoint } = req.body;
+//     equal(endpoint, parametrs).then(data => {
+//         res.redirect(createLink('localhost:8080/printouts', data.platform));
+//     }).catch(err => {
+//         console.error(err);
+//         res.status(300).send('No data');
+//     })
+// })
 const createLink = (endpoint, platform) => {
     let port = 'http';
     return `${port}://${endpoint}?${platform}`;
