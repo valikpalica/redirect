@@ -37,15 +37,15 @@ const getInfo = async (system,parametrs) =>{
         let platform;
         let result;
         if(system === '.net'){
-            // let token = parametrs.Token;
-            // let refresh_token = parametrs.RefreshToken;
-            platform = 'net';
-            result = await getInfoNet(parametrs);
+            let token = parametrs.Token;
+            let refresh_token = parametrs.RefreshToken;
+            platform = 'a08a0fcbdeafd3c1b3a4b495b9a9c9d96850f08946b52bc0622347d3b6e73b78';
+            result = await getInfoNet(token);
         }
         else if (system === 'php'){
-            //let guid = parametrs.guid;
-            platform = 'php';
-            result = await getInfoPHP(parametrs);
+            let guid = parametrs.guid;
+            platform = '12a5d18ee896e59954bdce0f4acc7212eebe03dae1834ef4ce160ac5afa5c4a8';
+            result = await getInfoPHP(guid);
         }
         return {result,platform};
     } catch (error) {
