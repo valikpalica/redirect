@@ -17,5 +17,6 @@
     },
     "net_system":{
         "uri":"https://auth.fxcess.com/account/userinfo"
-    }
+    },
+    "port":"8081"
 }

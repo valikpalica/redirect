@@ -1,10 +1,10 @@
 const express = require('express');
 const app = express();
-const PORT = 8081 || process.env.PORT;
 const equal = require('./Contentfull/index');
 const config = require('config');
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
+const PORT = config.get('port') || process.env.PORT;
 
 
 app.get('/',(req,res)=>{
