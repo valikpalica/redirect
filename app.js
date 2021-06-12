@@ -45,7 +45,7 @@ app.post('/',(req,res)=>{
 const createLink = (endpoint,platform) =>{
     let port = 'http';
     
-    return `${port}://${endpoint}?sys=${platform}`;
+    return `${port}://${endpoint}?${platform}`;
 }
 app.listen(PORT,()=>{
     console.log(`Server has been started on ${PORT} port`);
