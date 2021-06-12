@@ -1,10 +1,11 @@
 let contentful = require('contentful');
 let getInfoNet = require('../API/.net/index');
 let getInfoPHP = require('../API/php/index');
+const config = require('config');
 
 let client = contentful.createClient({
-    space : 'uh07yvhipxg5',
-    accessToken : 'roSrwRuPl3c1NDb2PVuDTScaUxvE0g1eAplAHs_hNWE',
+    space : config.get('Contentfull.space'),
+    accessToken : config.get('Contentfull.accessToken'),
 });
 
 const equal = async (link,parametrs) =>{
@@ -37,15 +38,15 @@ const getInfo = async (system,parametrs) =>{
         let platform;
         let result;
         if(system === '.net'){
-            // let token = parametrs.Token;
-            // let refresh_token = parametrs.RefreshToken;
-            platform = 'net';
-            result = await getInfoNet(parametrs);
+            let token = parametrs.Token;
+            let refresh_token = parametrs.RefreshToken;
+            platform = config.get('Platform_Abbreviation.net');
+            result = await getInfoNet(token);
         }
         else if (system === 'php'){
-            //let guid = parametrs.guid;
-            platform = 'php';
-            result = await getInfoPHP(parametrs);
+            let guid = parametrs.guid;
+            platform = config.get('Platform_Abbreviation.php');
+            result = await getInfoPHP(guid);
         }
         return {result,platform};
     } catch (error) {

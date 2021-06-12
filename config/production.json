@@ -1,0 +1,21 @@
+{
+    "Path":{
+        "port":"https",
+        "domain":"mkthub-dev.theitops.net/"
+    },
+    "Contentfull":{
+        "space":"uh07yvhipxg5",
+        "accessToken":"roSrwRuPl3c1NDb2PVuDTScaUxvE0g1eAplAHs_hNWE"
+    },
+    "Platform_Abbreviation":{
+        "net":"a08a0fcbdeafd3c1b3a4b495b9a9c9d96850f08946b52bc0622347d3b6e73b78",
+        "php":"12a5d18ee896e59954bdce0f4acc7212eebe03dae1834ef4ce160ac5afa5c4a8"
+    },
+    "php_system":{
+        "apiKey":"n6$*Q$43RSdv&X+r",
+        "uri":"https://www.ironfx.com/json/sso.json"
+    },
+    "net_system":{
+        "uri":"https://auth.fxcess.com/account/userinfo"
+    }
+}
