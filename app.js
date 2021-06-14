@@ -6,7 +6,6 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 const PORT = config.get('port') || process.env.PORT;
 
-
 app.get('/',(req,res)=>{
     let hostname = req.hostname;
     equal(hostname,req.query).then(data=>{
