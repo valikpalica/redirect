@@ -41,11 +41,13 @@ const getInfo = async (system,parametrs) =>{
             let token = parametrs.Token;
             let refresh_token = parametrs.RefreshToken;
             platform = config.get('Platform_Abbreviation.net');
+
             result = await getInfoNet(token);
         }
         else if (system === 'php'){
             let guid = parametrs.guid;
             platform = config.get('Platform_Abbreviation.php');
+
             result = await getInfoPHP(guid);
         }
         return {result,platform};
