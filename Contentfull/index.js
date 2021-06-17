@@ -14,11 +14,10 @@ const equal = async (link,parametrs) =>{
             content_type:'authorizationLinks'
         }).then(entrise=>{
            entrise.items.forEach(item=>{
-               
                if(link === item.fields.linkIn){
                    getInfo(item.fields.system,parametrs).then(({result,platform})=>{
-                       
                        if(result!==undefined){
+                           console.log(`LinkOut ${item.fields.linkOut}, platform ${platform}, status_autorization ${result}`)
                             resolve({link:item.fields.linkOut,id_user:result,platform});
                        }
                        else{
@@ -39,9 +38,7 @@ const getInfo = async (system,parametrs) =>{
         let result;
         if(system === '.net'){
             let token = parametrs.Token;
-            let refresh_token = parametrs.RefreshToken;
             platform = config.get('Platform_Abbreviation.net');
-
             result = await getInfoNet(token);
         }
         else if (system === 'php'){

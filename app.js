@@ -8,6 +8,7 @@ const PORT = config.get('port') || process.env.PORT;
 
 app.get('/',(req,res)=>{
     let hostname = req.hostname;
+    console.log(`client connect to server from ${hostname}`);
     equal(hostname,req.query).then(data=>{
     let domain = config.get('Path.domain');
     res.redirect(createLink(domain, data.platform));
