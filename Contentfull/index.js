@@ -23,6 +23,8 @@ const equal = async (link,parametrs) =>{
                        else{
                            reject(new Error('No data'));
                        }
+                   }).catch(err=>{
+                       console.log(err);
                    });
                }
            })
