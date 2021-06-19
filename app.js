@@ -7,13 +7,14 @@ app.use(express.json());
 const PORT = config.get('port') || process.env.PORT;
 
 app.get('/',(req,res)=>{
-    let hostname = req.hostname;
+    //let hostname = req.hostname;
+    let hostname = 'www.fxgiants.com';
     console.log(`client connect to server from ${hostname}`);
     equal(hostname,req.query).then(data=>{
     let domain = config.get('Path.domain');
     res.redirect(createLink(domain, data.platform));
     }).catch(err=>{
-        console.error(err);
+        console.error('app.js 17 line - ',err);
         res.status(300).send('No data');
     });
 });
